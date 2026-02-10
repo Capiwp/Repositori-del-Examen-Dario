@@ -1,0 +1,53 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup SSH Key
+        env:
+          AWS_SSH_KEY: ${{ secrets.AWS_SSH_KEY }}
+        run: |
+          if [ -z "$AWS_SSH_KEY" ]; then
+            echo "::error::AWS_SSH_KEY secret is not set!"
+            exit 1
+          else
+            echo "Success: AWS_SSH_KEY found. Length: ${#AWS_SSH_KEY}"
+          fi
+
+          # Crear el archivo key.pem donde Ansible lo espera, eliminando posibles CR de Windows
+          echo "$AWS_SSH_KEY" | tr -d '\r' > ansible/key.pem
+
+          echo "" >> ansible/key.pem
+          chmod 600 ansible/key.pem
+
+          # Añadir la IP a known_hosts para evitar prompts interactivos
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          
+          echo "Checking connectivity to 54.234.173.105:22..."
+          if ! nc -zv -w 5 54.234.173.105 22; then
+            echo "::error::Connection timed out. Check AWS Security Groups allow SSH from 0.0.0.0/0 (or this IP)."
+            exit 1
+          fi
+          
+          ssh-keyscan -H 54.234.173.105 >> ~/.ssh/known_hosts
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y python3-pip
+          pip3 install ansible
+
+      - name: Run Playbook
+        run: |
+          cd ansible
+          ansible-playbook -i inventories/production.yml playbooks/deploy.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: False
