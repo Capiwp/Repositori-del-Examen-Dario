@@ -9,7 +9,7 @@
 
 - name: Checkout app code from repo
   git:
-    repo: "https://github.com/Capiwp/Exa-Despliegue-Dario.git"
+    repo: "https://github.com/Capiwp/Repositori-del-Examen-Dario.git"
     dest: /home/{{ ansible_user }}/apps/myapp
     version: "{{ git_ref | default('main') }}"
     force: yes
