@@ -7,7 +7,7 @@ all:
   hosts:
     web1:
 
-      ansible_host: 54.227.32.81
+      ansible_host: 54.87.225.214
 
       ansible_user: ubuntu
 
