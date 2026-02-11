@@ -1,12 +1,12 @@
 OpenSSH_for_Windows_9.5p1, LibreSSL 3.8.2
-debug1: Connecting to 54.175.27.36 [54.175.27.36] port 22.
+debug1: Connecting to 52.55.215.197 [52.55.215.197] port 22.
 debug1: Connection established.
 debug1: identity file ./key.pem type -1
 debug1: identity file ./key.pem-cert type -1
 debug1: Local version string SSH-2.0-OpenSSH_for_Windows_9.5
 debug1: Remote protocol version 2.0, remote software version OpenSSH_9.6p1 Ubuntu-3ubuntu13.14
 debug1: compat_banner: match: OpenSSH_9.6p1 Ubuntu-3ubuntu13.14 pat OpenSSH* compat 0x04000000
-debug1: Authenticating to 54.175.27.36:22 as 'ubuntu'
+debug1: Authenticating to 52.55.215.197:22 as 'ubuntu'
 debug1: load_hostkeys: fopen C:\\Users\\Sebas/.ssh/known_hosts2: No such file or directory
 debug1: load_hostkeys: fopen __PROGRAMDATA__\\ssh/ssh_known_hosts: No such file or directory
 debug1: load_hostkeys: fopen __PROGRAMDATA__\\ssh/ssh_known_hosts2: No such file or directory
@@ -43,4 +43,4 @@ debug1: Next authentication method: publickey
 debug1: Trying private key: ./key.pem
 Load key "./key.pem": Permission denied
 debug1: No more authentication methods to try.
-ubuntu@54.175.27.36: Permission denied (publickey).
+ubuntu@52.55.215.197: Permission denied (publickey).
